@@ -140,7 +140,9 @@ export default function CategoryForm({ initialData, courseId, options }) {
 
                       <SelectContent>
                         {options.map((op) => (
-                          <SelectItem value={op.value}>{op.label}</SelectItem>
+                          <SelectItem key={op.label} value={op.value}>
+                            {op.label}
+                          </SelectItem>
                           // label: op.name,
                           // value: op._id,
                         ))}

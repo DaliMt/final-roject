@@ -140,7 +140,9 @@ export default function DifficultyForm({ initialData, courseId, options }) {
 
                       <SelectContent>
                         {options.map((op) => (
-                          <SelectItem value={op}>{op}</SelectItem>
+                          <SelectItem key={op.label} value={op}>
+                            {op}
+                          </SelectItem>
                           // label: op.name,
                           // value: op._id,
                         ))}
