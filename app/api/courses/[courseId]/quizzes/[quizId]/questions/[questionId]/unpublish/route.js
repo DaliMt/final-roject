@@ -27,7 +27,7 @@ export async function PATCH(req, { params }) {
     });
 
     // Check if there are no published quizs in the course
-    if (!publishedQuestionsInQuestion.length) {
+    if (!publishedQuestionsInQuiz.length) {
       // Update the course to mark it as unpublished
       await Quiz.findByIdAndUpdate(params.questionId, { isPublished: false });
     }
