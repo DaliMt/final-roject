@@ -97,14 +97,7 @@ export default function QuizQuestionList({
                       </span>
                       <div className="ml-auto pr-2 flex items-center gap-x-2">
                         {question.isFree && <Badge>Free</Badge>}
-                        <Badge
-                          className={cn(
-                            "bg-slate-500",
-                            question.isPublished && "bg-sky-700"
-                          )}
-                        >
-                          {question.isPublished ? "Published" : "Draft"}
-                        </Badge>
+
                         <Pencil
                           onClick={() => onEdit(question._id)}
                           className="w-4 h-4 cursor-pointer hover:opacity-75 hover:text-sky-700   transition"
