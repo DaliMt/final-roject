@@ -1,5 +1,5 @@
 import connectMongoDB from "@/lib/mongodb";
-import Quiz from "@/models/quiz";
+import { Quiz } from "@/models/quiz";
 import Course from "@/models/course";
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
