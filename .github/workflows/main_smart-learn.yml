@@ -1,5 +1,4 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-
 env:
   MUX_TOKEN_ID: ${{ secrets.MUX_TOKEN_ID }}
   MUX_TOKEN_SECRET: ${{ secrets.MUX_TOKEN_SECRET }}
