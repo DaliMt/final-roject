@@ -19,7 +19,7 @@ export default function UserInfo() {
           <div className="bg-sky-700 grid place-items-center h-screen">
             <div className="  shadow-lg p-8 bg-slate-100 rounded-md  flex  flex-col gap-2 my-6 ">
               <h1 className="text-xl font-medium text-red-700">
-                Are You Sure of LoginOut ?
+                Are You Sure to LogOut ?
               </h1>
               <div>
                 Name :{" "}
