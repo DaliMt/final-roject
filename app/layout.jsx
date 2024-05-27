@@ -1,9 +1,10 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
-
 import ToasterProvider from "@/components/providers/Toaster-provider";
 import ConfettiProvider from "@/components/providers/ConfettiProvider";
 import { AuthProvider } from "./Providers";
+import { useSession } from "next-auth/react";
+import { getServerSession } from "next-auth";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -12,9 +13,10 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  const session = getServerSession();
   return (
     // <ClerkProvider>
-    <AuthProvider basePath="/app/api/auth">
+    <AuthProvider session={session}>
       <html lang="en">
         <body className={inter.className}>
           <ConfettiProvider />
