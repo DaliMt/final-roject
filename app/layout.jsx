@@ -6,6 +6,7 @@ import { AuthProvider } from "./Providers";
 import { useSession } from "next-auth/react";
 import { getServerSession } from "next-auth";
 const inter = Inter({ subsets: ["latin"] });
+import { authOptions } from "./api/auth/[...nextauth]/route";
 
 export const metadata = {
   title: "Smart-Learn",
@@ -13,7 +14,8 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  const session = getServerSession();
+  const session = getServerSession(authOptions);
+  console.log("server sessionv :: ", session);
   return (
     // <ClerkProvider>
     <AuthProvider session={session}>
