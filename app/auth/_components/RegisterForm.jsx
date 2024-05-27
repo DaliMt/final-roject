@@ -43,14 +43,17 @@ export default function RegisterForm() {
       const values = { username, email, password, role };
 
       const res = await axios.post("/api/register", values);
-
       if (res.status === 200) {
         const form = e.target;
         router.push("/auth");
       }
     } catch (error) {
       console.log("error during registration", error);
-      setError("Registration failed. Please try again.");
+      if (error.response && error.response.status === 400) {
+        setError(error.response.data);
+      } else {
+        setError("Registration failed. Please try again.");
+      }
     }
   }
 

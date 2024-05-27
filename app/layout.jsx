@@ -14,7 +14,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     // <ClerkProvider>
-    <AuthProvider>
+    <AuthProvider basePath="/app/api/auth">
       <html lang="en">
         <body className={inter.className}>
           <ConfettiProvider />
