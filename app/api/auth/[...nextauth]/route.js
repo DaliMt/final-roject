@@ -69,24 +69,23 @@ export const authOptions = {
       return token;
     },
     async session({ session, token }) {
-     
       // session.user = token; // Assign the token, which contains user data, to session.user
       session.user = {
         _id: token._doc._id,
         username: token._doc.username,
         email: token._doc.email,
-        role : token._doc.role,
+        role: token._doc.role,
         createdAt: token._doc.createdAt,
-        updatedAt: token._doc.updatedAt
+        updatedAt: token._doc.updatedAt,
       }; // Extract necessary user data and assign it to session.user
       return session;
     },
-    
+
     // async session(session, token) {
     //   session.user = token?.user || {}; // Use the user object from the token, or an empty object if not available
     //   return session;
     // },
-  }
+  },
 };
 
 const handler = NextAuth(authOptions);

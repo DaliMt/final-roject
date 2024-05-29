@@ -5,9 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import {
-  From,
   FormControl,
-  FormDescription,
   FormField,
   FormLabel,
   FormMessage,
@@ -19,7 +17,6 @@ import Link from "next/link";
 import toast from "react-hot-toast";
 import ConfirmModal from "@/components/modals/ConfirmModal";
 import { Trash } from "lucide-react";
-
 import {
   Select,
   SelectContent,
@@ -30,15 +27,9 @@ import {
 import ImageForm from "./ImageForm";
 
 const formSchema = z.object({
-  //   username : z.string().min(1,{
-  //     message : "Username is required"
-  //   }),
   username: z.string().min(1, "Username is required").max(100),
   email: z.string().min(1, "Email is required").email("Invalid email"),
-  password: z
-    .string()
-    .min(1, "Password is required")
-    .min(8, "Password must have than 8 characters"),
+  password: z.string().min(1, "Password is required"),
   role: z.string().min(1, "Role is required"),
 });
 
@@ -54,20 +45,20 @@ export default function EditAccountForm({ userdata, accountId }) {
     },
   });
 
-  const { isSubmitting, isValid } = form.formState;
+  const { isSubmitting, isDirty, isValid } = form.formState;
+
   async function onSubmit(values) {
     try {
-      // console.log(values)
       await axios.patch(`/api/accounts/${accountId}`, values);
 
-      //   router.push(`/teacher/accounts/${res.data._id}`)
-      // console.log("acoount:::" , res.data)
-      if (userdata.role === "teacher") {
-        router.push(`/teacher/accounts`);
-      } else {
-        router.push(`/`);
-      }
-      toast.success("account updated");
+      // if (userdata.role === "teacher") {
+      //   router.push(`/teacher/accounts`);
+      // } else {
+
+      router.push(`/`);
+      // }
+
+      toast.success("Account updated");
       router.refresh();
     } catch {
       toast.error("Something went wrong!");
@@ -87,18 +78,9 @@ export default function EditAccountForm({ userdata, accountId }) {
   }
 
   const options = [
-    {
-      value: "student",
-      label: "student",
-    },
-    {
-      value: "teacher",
-      label: "teacher",
-    },
-    {
-      value: "admin",
-      label: "admin",
-    },
+    { value: "student", label: "student" },
+    { value: "teacher", label: "teacher" },
+    { value: "admin", label: "admin" },
   ];
 
   const selectedOption = options.find(
@@ -107,23 +89,11 @@ export default function EditAccountForm({ userdata, accountId }) {
 
   return (
     <>
-      {/* <ImageForm
-        userdata ={userdata}
-        accountId={accountId}
-        /> */}
-      <div className="max-w-5xl mx-auto  border bg-sky-700 rounded-md  flex md:items-center md:justify-center  h-full  p-6 ">
-        {/* <ImageForm
-              userdata ={userdata}
-              accountId={accountId}
-          /> */}
-
+      <div className="max-w-5xl mx-auto border bg-sky-700 rounded-md flex md:items-center md:justify-center h-full p-6">
         <div className="flex gap-x-20 items-start">
-          <div className=" border bg-slate-100 rounded-md p-6">
+          <div className="border bg-slate-100 rounded-md p-6">
             <div className="flex items-center gap-x-20">
               <h1 className="text-2xl">Edit The Account</h1>
-              {/* <p className='text-sm text-slate-600'>
-                what would you like to name this course?
-              </p> */}
               {userdata.role === "admin" && (
                 <div>
                   <ConfirmModal onConfirm={onDelete}>
@@ -138,7 +108,7 @@ export default function EditAccountForm({ userdata, accountId }) {
             <FormProvider {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className=" space-y-8 mt-8"
+                className="space-y-8 mt-8"
               >
                 <div className="space-y-2">
                   <FormField
@@ -150,13 +120,10 @@ export default function EditAccountForm({ userdata, accountId }) {
                         <FormControl>
                           <Input
                             disabled={isSubmitting}
-                            placeholder="blaaa"
+                            placeholder="Username"
                             {...field}
                           />
                         </FormControl>
-                        {/* <FormDescription>
-                            what will you teach in this course?
-                            </FormDescription> */}
                         <FormMessage />
                       </FormItem>
                     )}
@@ -175,9 +142,6 @@ export default function EditAccountForm({ userdata, accountId }) {
                             {...field}
                           />
                         </FormControl>
-                        {/* <FormDescription>
-                            what will you teach in this course?
-                            </FormDescription> */}
                         <FormMessage />
                       </FormItem>
                     )}
@@ -197,13 +161,11 @@ export default function EditAccountForm({ userdata, accountId }) {
                             {...field}
                           />
                         </FormControl>
-                        {/* <FormDescription>
-                            what will you teach in this course?
-                            </FormDescription> */}
                         <FormMessage />
                       </FormItem>
                     )}
                   />
+
                   {userdata.role === "admin" && (
                     <FormField
                       control={form.control}
@@ -212,18 +174,11 @@ export default function EditAccountForm({ userdata, accountId }) {
                         <FormItem>
                           <FormLabel>Role</FormLabel>
                           <FormControl>
-                            {/* <Combobox
-                      options={options}
-                      disabled={isSubmitting}
-                      {...field}
-
-                    /> */}
-
                             <Select onValueChange={field.onChange}>
                               <SelectTrigger className="w-full text-slate-500">
                                 <SelectValue
                                   placeholder={
-                                    selectedOption?.label || "select user Role "
+                                    selectedOption?.label || "Select user role"
                                   }
                                 />
                               </SelectTrigger>
@@ -233,8 +188,6 @@ export default function EditAccountForm({ userdata, accountId }) {
                                   <SelectItem key={op.label} value={op.value}>
                                     {op.label}
                                   </SelectItem>
-                                  // label: op.name,
-                                  // value: op._id,
                                 ))}
                               </SelectContent>
                             </Select>
@@ -260,7 +213,10 @@ export default function EditAccountForm({ userdata, accountId }) {
                     </Link>
                   )}
 
-                  <Button type="submit" disabled={!isValid || isSubmitting}>
+                  <Button
+                    type="submit"
+                    disabled={!isValid || !isDirty || isSubmitting}
+                  >
                     Continue
                   </Button>
                 </div>
