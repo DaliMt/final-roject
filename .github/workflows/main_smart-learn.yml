@@ -2,7 +2,18 @@
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
 name: Build and deploy Node.js app to Azure Web App - smart-learn
-
+env:
+  MUX_TOKEN_ID: ${{ secrets.MUX_TOKEN_ID }}
+  MUX_TOKEN_SECRET: ${{ secrets.MUX_TOKEN_SECRET }}
+  MONGO_URI: ${{ secrets.MONGO_URI }}
+  UPLOADTHING_SECRET: ${{ secrets.UPLOADTHING_SECRET }}
+  UPLOADTHING_APP_ID: ${{ secrets.UPLOADTHING_APP_ID }}
+  STRIPE_API_KEY: ${{ secrets.STRIPE_API_KEY }}
+  NEXT_PUBLIC_APP_URL: ${{ secrets.NEXT_PUBLIC_APP_URL }}
+  STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
+  NEXT_PUBLIC_TEACHER_ID: ${{ secrets.NEXT_PUBLIC_TEACHER_ID }}
+  NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
+  NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL }}
 on:
   push:
     branches:
